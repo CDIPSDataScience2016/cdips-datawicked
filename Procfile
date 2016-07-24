@@ -1,0 +1,1 @@
+web: run_heroku.py --log-file=-
