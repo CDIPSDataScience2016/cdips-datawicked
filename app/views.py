@@ -2,7 +2,11 @@ from flask import render_template
 from app import app
 from .utils import bcolors
 import plotly
+import plotly.plotly as py
+import plotly.graph_objs as go
 import json
+
+plotly.tools.set_credentials_file(username='mike-a-yen', api_key='7ijqoy41kr')
 
 
 @app.route('/')
@@ -21,14 +25,13 @@ def index():
 
 @app.route('/samsung')
 def samsung():
-    fi = open('app/static/Samsung_chromebook_sentiment.json', 'r')
+    fi = open('app/static/Samsung_chromebook_sentiment.json')
     graph = json.loads(fi.read())
     print(bcolors.green, 'Pre', graph, bcolors.endc)
-    graph = json.dumps(graph, cls=plotly.utils.PlotlyJSONEncoder)
     print(bcolors.blue, 'Post', graph, bcolors.endc)
-    return render_template('plots.html',
-                           ids=['Samsung'],
-                           graphJSON=[graph])
+    data = graph['data']
+    link = py.iplot(data, filename='basic-scatter')
+    return link.embed_code
 
 
 @app.route('/product/<int:product_id>')
