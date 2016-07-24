@@ -1,15 +1,46 @@
+<!doctype html>
 <html>
-  <head>
-    {% if title %}
-    <title>{{ title }} - microblog</title>
+<head>
+{% if title %}
+    <title>{{ title }}</title>
     {% else %}
-    <title>Welcome to microblog</title>
+    <title>CDIPS DataWicked</title>
     {% endif %}
-  </head>
-  <body>
-    <h1>Hello, {{ user.nickname }}!</h1>
-    {% for post in posts%}
-    <div><p>{{post.author}} says: <i>{{post.body}}</i></p></div>
+</head>
+
+<body>
+
+    {% for id in ids %}
+        <h3>{{id}}</h3>
+        <div id="{{id}}"></div>
     {% endfor %}
-  </body>
+
+</body>
+
+
+<footer>
+    <!-- D3.js -->
+    <!--<script src="https://d3js.org/d3.v4.1.1.js"></script> -->
+    <script type="text/javascript" src="../static/js/node_modules/d3/index.js"></script>
+    <!-- jQuery -->
+    <script type="text/javascript" src="../static/js/node_modules/jquery/dist/jquery.min.js"></script>
+    <!--<script src="jquery-3.1.0.min.js"></script>-->
+    <!-- Plotly.js -->
+    <script type="text/javascript" src="../static/js/node_modules/plotly/index.js"></script>
+    <!--<script src="plotly-latest.min.js"></script>-->
+    <script type="text/javascript">
+
+        var graphs = {{graphJSON | safe}};
+        var ids = {{ids | safe}};
+
+        for(var i in graphs) {
+	    
+            Plotly.plot(ids[i], // the ID of the div, created above
+                        graphs[i].data,
+                        graphs[i].layout || {});
+        }
+
+    </script>
+</footer>
+
 </html>
