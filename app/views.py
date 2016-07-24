@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, request
 from app import app
 from .utils import bcolors
 import plotly
@@ -22,6 +22,17 @@ def index():
                            user=user,
                            posts=posts)
 
+
+@app.route('/product')
+def product():
+    #TODO Use bethans function to change parameters
+    # and return json of plotly
+    #plot_json = bethans_function(product,sentiment)
+    fi = open('app/static/Samsung_chromebook_sentiment.json', 'r')
+    graph = json.loads(fi.read())
+    data = graph['data']
+    link = py.iplot(data,filename).embed_code
+    return render_template('product_views.html',post=link)
 
 @app.route('/samsung')
 def samsung():
