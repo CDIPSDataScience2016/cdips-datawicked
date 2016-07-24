@@ -1,1 +1,1 @@
-web: run_heroku.py --log-file=-
+web: python3 run_heroku.py --log-file=-
