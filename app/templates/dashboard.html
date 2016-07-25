@@ -52,7 +52,7 @@
 
             <ul class="nav">
                 <li class="active">
-                    <a href="dashboard.html">
+                    <a href="/product">
                         <i class="pe-7s-graph"></i>
                         <p>Dashboard</p>
                     </a>
@@ -202,7 +202,49 @@
                         </div>
                     </div>
 		    -->
-	
+	<div class="col-md-12">
+	  <div class="card">
+	    <div class="header">
+	      <h4 class="title">Input Parameters</h4>
+	    </div>
+	    <div class="content">
+	      <form action="/product" method="post">
+		
+		<div class="row">
+		  <div class="form-group">
+		    <label class="col-sm-2 control-label">Product</label>
+		    
+		    <input type="checkbox" name="product" data-toggle="checkbox"
+			   value="Samsung Chromebook">
+		    <span class="category">Samsung Chromebook</span></input>
+
+		    <input type="checkbox" name="product" data-toggle="checkbox"
+			   value="Apple iPad">
+		    <span class="category">Apple iPad</span></input>
+
+		  </div>
+		</div>
+
+		<div class="row">
+		  <div class="form-group">
+		    <label class="col-sm-2 control-label">Sentiment</label>
+
+		    <input type="checkbox" name="sentiment" data-toggle="checkbox" value="1">
+		    <span class="category">Positive</span></input>
+
+		    <input type="checkbox" name="sentiment" data-toggle="checkbox" value="0">
+		    <span class="category">Neutral</span></input>
+
+		    <input type="checkbox" name="sentiment" data-toggle="checkbox" value="-1">
+		    <span class="category">Negative</span></input>
+
+		  </div>
+		</div>
+		<button type="submit" class="btn btn-fill btn-info">Submit</button>
+	      </form>
+	    </div>
+	  </div>
+	</div>
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
