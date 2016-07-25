@@ -1,12 +1,27 @@
-from flask import render_template, request
+from flask import render_template, request, redirect, url_for
 from app import app
 from .utils import bcolors
 import plotly
 import plotly.plotly as py
 import plotly.graph_objs as go
 import json
+from IPython import embed
 
 plotly.tools.set_credentials_file(username='mike-a-yen', api_key='7ijqoy41kr')
+
+
+def json_to_link(fi):
+    fo = open(fi)
+    graph = json.loads(fo.read())
+    link = py.iplot(graph['data'], filename=fi)
+    return link.embed_code
+
+
+def bethans_function(name):
+    if name == 'Samsung Chromebook':
+        return '<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plot.ly/~mike-a-yen/0.embed" height="525px" width="100%"></iframe>'
+    else:
+        return '<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plot.ly/~mike-a-yen/5.embed" height="525px" width="100%"></iframe>'
 
 
 @app.route('/')
@@ -23,28 +38,25 @@ def index():
                            posts=posts)
 
 
-@app.route('/product')
+@app.route('/product', methods=['GET', 'POST'])
 def product():
-    #TODO Use bethans function to change parameters
-    # and return json of plotly
-    #plot_json = bethans_function(product,sentiment)
-    fi = open('app/static/Samsung_chromebook_sentiment.json', 'r')
-    graph = json.loads(fi.read())
-    data = graph['data']
-    link = py.iplot(data,filename).embed_code
-    return render_template('product_views.html',post=link)
+    print(bcolors.green, request, bcolors.endc)
+    link = bethans_function(request.form.get('Product', ''))
+    print(link)
+    print(request.form.get('Product', ''))
 
-@app.route('/samsung')
-def samsung():
-    fi = open('app/static/Samsung_chromebook_sentiment.json')
-    graph = json.loads(fi.read())
-    print(bcolors.green, 'Pre', graph, bcolors.endc)
-    print(bcolors.blue, 'Post', graph, bcolors.endc)
-    data = graph['data']
-    link = py.iplot(data, filename='basic-scatter')
-    return link.embed_code
+    post = {'product_name': request.form.get('Product', ''),
+            'kind': 'Time Series',
+            'plotly_html': link}
+    return render_template('dashboard.html', post=post)
 
 
-@app.route('/product/<int:product_id>')
-def product():
-    return '404'
+@app.route('/submit_product', methods=['GET', 'POST'])
+def submit_product():
+    print(bcolors.red, request.form, bcolors.endc)
+    print(bcolors.blue, request.form.keys(), bcolors.endc)
+    for item in request.form.items():
+        print(bcolors.green, item, bcolors.endc)
+    print(url_for('product'))
+    embed()
+    return redirect(url_for('product/%s' % request.form['Product']))

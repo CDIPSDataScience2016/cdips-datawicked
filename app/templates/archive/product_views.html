@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <title>Product View</title>
+  </head>
+  <body>
+
+    <h1>Product Viewer</h1>
+    
+    <form action="/product" method="post">
+      <select name="Product">
+	<option value="Samsung Chromebook">Samsung Chomebook</option>
+	<option value="Apple Ipad">Apple iPad</option>
+      </select>
+      <fieldset>
+	<legend> Sentiment </legend>
+	<input type="radio" name="sentiment" value="1">Positive</input>
+	<input type="radio" name="sentiment" value="0">Neutral</input>
+	<input type="radio" name="sentiment" value="-1">Negative</input>
+      </fieldset>
+      <input type="submit" value="Submit"></input>
+    </form>
+    
+    <div id="plotly">
+      <div class="title">
+	<h5> Post request with Flask </h5>
+      </div>
+      <div class="title">{{post.product_name}}</div>
+      <div id="content">
+	{{ post.plotly_html | safe }}
+      </div>
+    </div>
+  </body>
+</html>
