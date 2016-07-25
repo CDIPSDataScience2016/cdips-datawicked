@@ -41,11 +41,13 @@ def index():
 @app.route('/product', methods=['GET', 'POST'])
 def product():
     print(bcolors.green, request, bcolors.endc)
-    link = bethans_function(request.form.get('Product', ''))
+    print(request.form.get('product', ''))
+    print(request.form.get('sentiment', ''))
+    link = bethans_function(request.form.get('product', ''))
     print(link)
-    print(request.form.get('Product', ''))
+    print(request.form.get('product', ''))
 
-    post = {'product_name': request.form.get('Product', ''),
+    post = {'product_name': request.form.get('product', ''),
             'kind': 'Time Series',
             'plotly_html': link}
     return render_template('dashboard.html', post=post)
