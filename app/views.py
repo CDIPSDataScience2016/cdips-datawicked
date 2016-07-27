@@ -5,7 +5,7 @@ import plotly
 import plotly.plotly as py
 import plotly.graph_objs as go
 import json
-from IPython import embed
+#from IPython import embed
 
 plotly.tools.set_credentials_file(username='mike-a-yen', api_key='7ijqoy41kr')
 
@@ -24,19 +24,22 @@ def bethans_function(name):
         return '<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plot.ly/~mike-a-yen/5.embed" height="525px" width="100%"></iframe>'
 
 
-@app.route('/')
-@app.route('/index')
-def index():
-    user = {'nickname': 'Mike'}
-    posts = [{'author': 'Yaning',
-              'body': 'Hello!'},
-             {'author': 'Bethan',
-              'body': 'Goodbye!'}]
-    return render_template('index.html',
-                           title='CDIPS Data Wicked',
-                           user=user,
-                           posts=posts)
+#@app.route('/')
+#@app.route('/index')
+#def index():
+#    user = {'nickname': 'Mike'}
+#    posts = [{'author': 'Yaning',
+#              'body': 'Hello!'},
+#             {'author': 'Bethan',
+#              'body': 'Goodbye!'}]
+#    return render_template('index.html',
+#                           title='CDIPS Data Wicked',
+#                           user=user,
+#                           posts=posts)
 
+@app.route('/')
+def index():
+    return 'Hello World'
 
 @app.route('/product', methods=['GET', 'POST'])
 def product():
@@ -60,5 +63,5 @@ def submit_product():
     for item in request.form.items():
         print(bcolors.green, item, bcolors.endc)
     print(url_for('product'))
-    embed()
+ #   embed()
     return redirect(url_for('product/%s' % request.form['Product']))
