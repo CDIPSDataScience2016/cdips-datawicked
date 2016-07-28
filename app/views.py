@@ -33,13 +33,16 @@ def index():
 def product():
     print(bcolors.green, request, bcolors.endc)
     print(bcolors.green,list(request.form.keys()),bcolors.endc)
-    print(request.form.get('product', ''))
-    print(request.form.get('sentiment', ''))
-    link = bethans_function(request.form.get('product', ''))
+    product = request.get('product')
+    product_select = request.get('product_select')
+    sentiment = request.get('sentiment')
+    print(product)
+    print(sentiment)
+    link = bethans_function(product)
     print(link)
-    print(request.form.get('product', ''))
-
-    post = {'product_name': request.form.get('product', ''),
+    print(bcolors.green,product,bcolors.endc)
+    print(bcolors.blue,product_select,bcolors.endc)
+    post = {'product_name': product_select,
             'kind': 'Time Series',
             'plotly_html': link}
     return render_template('dashboard.html', post=post)
