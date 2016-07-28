@@ -33,9 +33,9 @@ def index():
 def product():
     print(bcolors.green, request, bcolors.endc)
     print(bcolors.green,list(request.form.keys()),bcolors.endc)
-    product = request.get('product')
-    product_select = request.get('product_select')
-    sentiment = request.get('sentiment')
+    product = request.form.get('product')
+    product_select = request.form.get('product_select')
+    sentiment = request.form.get('sentiment')
     print(product)
     print(sentiment)
     link = bethans_function(product)
