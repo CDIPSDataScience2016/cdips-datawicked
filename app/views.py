@@ -17,11 +17,11 @@ def json_to_link(fi):
 
 def bethans_function(name):
     if name == 'Samsung Chromebook':
-        #return '<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plot.ly/~mike-a-yen/0.embed" height="525px" width="100%"></iframe>'
-        return json_to_link('app/static/Samsung_chromebook_sentiment.json')
+        return '<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plot.ly/~mike-a-yen/0.embed" height="525px" width="100%"></iframe>'
+        return json_to_link('/var/www/html/cdips-datawicked/app/static/Samsung_chromebook_sentiment.json')
     else:
-        #return '<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plot.ly/~mike-a-yen/5.embed" height="525px" width="100%"></iframe>'
-        return json_to_link('app/static/Ipad_and_Kindle_sentiment.json')
+        return '<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plot.ly/~mike-a-yen/5.embed" height="525px" width="100%"></iframe>'
+        return json_to_link('/var/www/html/cdips-datawicked/app/static/Ipad_and_Kindle_sentiment.json')
 
 
 @app.route('/')
