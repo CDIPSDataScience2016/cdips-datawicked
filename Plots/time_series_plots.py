@@ -1,24 +1,11 @@
-
-# coding: utf-8
+#The functions make_all_review_plot_json and make_sentiment_plot_json take a single product or list of products as parameters and return the plotly plot as a json file. 
 
 # Read in data for products and assign product names (this should be automated from meta data in the future
-
-# In[1]:
-
 import pandas as pd
 all_reviews = pd.read_csv("./data/top_10_electronics_reviews.csv", sep='\t')
 
 
-# Work out number of product reviews for each product. Maybe this will be useful at some point.
-# 
 # Everything before this point can be done when the web page is initially loaded, everything after this point will update when parameters are given. Currently only parameter is product, although multiple products can be given as a list (they will all be plotted on the same graph). 
-
-# In[6]:
-
-number_product_reviews = all_reviews.groupby([all_reviews.product_name]).overall.count()
-
-
-# In[2]:
 
 import datetime
 import plotly
@@ -26,6 +13,7 @@ import plotly.plotly as py
 import plotly.graph_objs as go
 import json
 
+#Converts time to datetime and returns pandas dataframe with date and number of reviews for one product
 def organize_product_reviews(product):
     #Convert data to correct type
     product['unixReviewTime'] = pd.to_datetime(product['unixReviewTime'],unit='s')
@@ -39,6 +27,7 @@ def organize_product_reviews(product):
     
     return df_time
 
+#returns a pandas dataframs of time and %positive reviews for a single product
 def sentiment_reviews(product):
     #Convert data to correct type
     product['unixReviewTime'] = pd.to_datetime(product['unixReviewTime'],unit='s')
@@ -62,6 +51,7 @@ def sentiment_reviews(product):
     
     return result
 
+#Generates plotly plot of all reviews vs time for a single product or list of products
 def make_all_review_plot_json(products):
     data = []
     
@@ -105,7 +95,8 @@ def make_all_review_plot_json(products):
     fig = go.Figure(data=data, layout=layout)
     with open('Ipad_and_Kindle.json', 'w') as outfile:
         return json.dump(fig, outfile, cls=plotly.utils.PlotlyJSONEncoder)
-    
+
+#Generates plotly plot of % positive reviews vs time for single product or list of products
 def make_sentiment_plot_json(products):
     data = []
     
@@ -149,15 +140,4 @@ def make_sentiment_plot_json(products):
     fig = go.Figure(data=data, layout=layout)
     with open('Ipad_and_Kindle_sentiment.json', 'w') as outfile:
         return json.dump(fig, outfile, cls=plotly.utils.PlotlyJSONEncoder)
-
-
-# In[8]:
-
-make_all_review_plot_json(["iPad Mini", "Kindle Fire"])
-make_sentiment_plot_json(["iPad Mini", "Kindle Fire"])
-
-
-# In[ ]:
-
-
 
