@@ -105,13 +105,13 @@
                <div class="form-group">
                  <label class="radio-inline" >Sentiment</label>
                     <label class="radio-inline">
-                        <input id="inlineradio1" name="sentiment" value="1" type="radio">
+                        <input id="inlineradio1" name="sentiment" value="Positive" type="radio">
                         Positive</label>
                     <label class="radio-inline">
-                        <input id="inlineradio2" name="sentiment" value="2" type="radio" checked="">
+                        <input id="inlineradio2" name="sentiment" value="Negative" type="radio" checked="">
                         Negative</label>
                     <label class="radio-inline">
-                        <input id="inlineradio3" name="sentiment" value="3" type="radio">
+                        <input id="inlineradio3" name="sentiment" value="Overall" type="radio">
                         Overall</label>
                </div>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -194,8 +194,8 @@
           <div class="card">
             <div class="header">
               <h4 class="title">{{post.product_name}}</h4>
+              <p class="category">{{post.sentiment_type}}&nbsp;Sentiment</p>
               <p class="category">{{post.kind}}</p>
-              <p class="category">{{post.sentiment_type}}</p>
             </div>
             <div class="content">
 	           {{post.plotly_html | safe}}
