@@ -81,12 +81,40 @@
         </nav>
 
 	<br>
-              <!--Try a different dropdown style-->
+
+
 	<div class="col-md-12">
 	  <div class="card">
 	    <div class="header">
-	      <h4 class="title">Select Product</h4>
+	      <h4 class="title">Electronics Products</h4>
 	    </div>
+
+        <div class="content">
+          <form action="/product" method="post" class="form-inline">
+              <div class="form-group">
+                <select name="product_select" multiple="" class="ui fluid dropdown">
+                      <option value="Samsung Chromebook">Samsung Chromebook</option>
+                      <option value="Apple iPad">Apple iPad</option>
+                  </select>
+              </div>
+              <div class="form-group">
+                 <label class="radio-inline" >Sentiment</label>
+                    <label class="radio-inline">
+                        <input id="inlineradio1" name="sentiment" value="1" type="radio">
+                        Positive</label>
+                    <label class="radio-inline">
+                        <input id="inlineradio2" name="sentiment" value="2" type="radio">
+                        Negative</label>
+                    <label class="radio-inline">
+                        <input id="inlineradio3" name="sentiment" value="3" type="radio">
+                        Overall</label>
+              </div>
+
+            <button type="submit" class="btn btn-fill btn-info">Submit</button>
+
+          </form>
+        </div>
+<!--
 	    <div class="content">
 	      <form action="/product" method="post">
 		  <div class="row">
@@ -96,13 +124,25 @@
 		              <option value="Apple iPad">Apple iPad</option>
 		          </select>
 		      </div>
-		  </div>
+                <div class="form-group">
+                    <label class="radio-inline">Sentiment</label>
+                    <label class="radio-inline">
+                        <input id="inlineradio1" name="sentiment" value="1" type="radio">
+                        Positive</label>
+                    <label class="radio-inline">
+                        <input id="inlineradio2" name="sentiment" value="2" type="radio">
+                        Negative</label>
+                    <label class="radio-inline">
+                        <input id="inlineradio3" name="sentiment" value="3" type="radio">
+                        Overall</label>
+                </div>
+		    </div>
+-->
 
-          <!--Try a different dropdown style-->
 
 
 
-          <!--Try a different dropdown style-->
+
 		<!--
 		<div class="row">
 		  <div class="form-group">
@@ -118,21 +158,10 @@
 		</div>
         -->
 
-        <fieldset>
-        <div class="form-group">
-            <label class="radio-inline">Sentiment</label>
-            <label class="radio-inline">
-                <input id="inlineradio1" name="sentiment" value="1" type="radio">
-                Positive</label>
-            <label class="radio-inline">
-                <input id="inlineradio2" name="sentiment" value="2" type="radio">
-                Negative</label>
-            <label class="radio-inline">
-                <input id="inlineradio3" name="sentiment" value="3" type="radio">
-                Overall</label>
-        </div>
-            <!--form-group-->
-        </fieldset>
+    
+
+
+
         <!--
 		<div class="row">
 		  <div class="form-group">
@@ -150,7 +179,8 @@
 		  </div>
 		</div>
         -->
-		<button type="submit" class="btn btn-fill btn-info">Submit</button>
+		
+        <button type="submit" class="btn btn-fill btn-info">Submit</button>
 	      </form>
 	    </div>
 	  </div>
