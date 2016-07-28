@@ -5,43 +5,38 @@ import plotly
 import plotly.plotly as py
 import plotly.graph_objs as go
 import json
-from IPython import embed
+#from IPython import embed
 
-plotly.tools.set_credentials_file(username='mike-a-yen', api_key='7ijqoy41kr')
+py.sign_in('naddata','6eos5rv0q4')
 
 
 def json_to_link(fi):
     fo = open(fi)
     graph = json.loads(fo.read())
-    link = py.iplot(graph['data'], filename=fi)
+    link = py.iplot(graph, filename=fi)
     return link.embed_code
 
 
 def bethans_function(name):
     if name == 'Samsung Chromebook':
-        return '<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plot.ly/~mike-a-yen/0.embed" height="525px" width="100%"></iframe>'
+        #return '<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plot.ly/~mike-a-yen/0.embed" height="525px" width="100%"></iframe>'
+        return json_to_link('app/static/Samsung_chromebook_sentiment.json')
     else:
-        return '<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plot.ly/~mike-a-yen/5.embed" height="525px" width="100%"></iframe>'
+        #return '<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plot.ly/~mike-a-yen/5.embed" height="525px" width="100%"></iframe>'
+        return json_to_link('app/static/Ipad_and_Kindle_sentiment.json')
 
 
 @app.route('/')
 @app.route('/index')
 def index():
-    user = {'nickname': 'Mike'}
-    posts = [{'author': 'Yaning',
-              'body': 'Hello!'},
-             {'author': 'Bethan',
-              'body': 'Goodbye!'}]
-    return render_template('index.html',
-                           title='CDIPS Data Wicked',
-                           user=user,
-                           posts=posts)
+    return redirect(url_for('product'))
 
 
 @app.route('/product', methods=['GET', 'POST'])
 def product():
     print(bcolors.green, request, bcolors.endc)
-    print(request.form.get('product', ''))
+    print(bcolors.green,list(request.form.keys()),bcolors.endc)
+    print(list(request.form.get('product', '')))
     print(request.form.get('sentiment', ''))
     link = bethans_function(request.form.get('product', ''))
     print(link)
@@ -60,5 +55,5 @@ def submit_product():
     for item in request.form.items():
         print(bcolors.green, item, bcolors.endc)
     print(url_for('product'))
-    embed()
+    #embed()
     return redirect(url_for('product/%s' % request.form['Product']))
