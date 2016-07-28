@@ -44,5 +44,6 @@ def product():
     print(bcolors.blue,product_select,bcolors.endc)
     post = {'product_name': product_select,
             'kind': 'Time Series',
+            'sentiment_type': sentiment,
             'plotly_html': link}
     return render_template('dashboard.html', post=post)
