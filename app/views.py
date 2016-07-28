@@ -7,8 +7,8 @@ import plotly.graph_objs as go
 import json
 #from IPython import embed
 
-plotly.tools.set_credentials_file(username='mike-a-yen', api_key='7ijqoy41kr')
-
+#plotly.tools.set_credentials_file(username='mike-a-yen', api_key='7ijqoy41kr')
+py.sign_in('naddata','6eos5rv0q4')
 
 def json_to_link(fi):
     fo = open(fi)
