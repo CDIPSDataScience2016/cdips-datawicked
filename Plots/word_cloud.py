@@ -71,12 +71,12 @@ def make_word_cloud(products):
         # generate word cloud for positive
         wc.generate_from_frequencies(pos_words_array)
         wc.recolor(color_func=pos_color_func, random_state=3)
-        wc.to_file("pos_wordcloud.png")
+        wc.to_file("../app/static/img/pos_wordcloud.png")
 
         # generate word cloud for negative
         wc.generate_from_frequencies(neg_words_array)
         wc.recolor(color_func=neg_color_func, random_state=3)
-        wc.to_file("neg_wordcloud.png")
+        wc.to_file("../app/static/img/neg_wordcloud.png")
 
     elif type(products) == list:
         list_pos = []
