@@ -118,7 +118,7 @@
           <form action="/product" method="post" class="form-inline">
           <div class="row">
                <div class="form-group">
-                    <select multiple name="product_select" class="form-control" id="sel2">
+                    <select multiple name="product_select" class="form-control" id="sel2" required>
 		      <option value="AmazonBasics USB to lightning charger for Apple">AmazonBasics USB</option>
 		      <option value="Google Chromecast">Google Chromecast</option>
 		      <option value="Kindle Fire">Kindle Fire</option>
@@ -236,7 +236,8 @@
 
         	$.notify({
             	icon: 'pe-7s-science',
-            	message: "Welcome to <b>DataBoard Dashboard</b> - a CDIPS data driven product."
+            	message: "Select a one or more products to visualize their
+            	review trends - a CDIPS data driven product."
 
             },{
                 type: 'info',
