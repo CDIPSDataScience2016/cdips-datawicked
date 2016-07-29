@@ -4,7 +4,7 @@
 # Read in data for products with product names assigned
 
 import pandas as pd
-all_reviews = pd.read_csv("./data/top_10_electronics_reviews.csv", sep='\t')
+all_reviews = pd.read_csv("data/top_10_electronics_reviews.csv", sep='\t')
 
 import datetime
 import json
@@ -153,13 +153,16 @@ def make_word_cloud(product, sentiment):
                max_font_size=300, random_state=42)
 
         # generate word cloud for positive
+        positive_name = 'pos_wordcloud.png'
         wc.generate_from_frequencies(pos_words_array)
         wc.recolor(color_func=pos_color_func, random_state=3)
-        wc.to_file("pos_wordcloud.png")
+        wc.to_file(positive_name)
 
         # generate word cloud for negative
+        negative_name = 'neg_wordcloud.png'
         wc.generate_from_frequencies(neg_words_array)
         wc.recolor(color_func=neg_color_func, random_state=3)
-        wc.to_file("neg_wordcloud.png")
+        wc.to_file(negative_name)
 
+        return positive_name, negative_name
 #make_word_cloud("Sony PlayStation 5", "all")
