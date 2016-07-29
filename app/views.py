@@ -7,13 +7,19 @@ import plotly
 import plotly.plotly as py
 import plotly.graph_objs as go
 import json
-
+import pdb
 
 py.sign_in('naddata','6eos5rv0q4')
 
+def plotly_json_to_url(js,filename='product'):
+    link = py.plot(js, filename=filename, auto_open=False)
+    print(bcolors.red,link,bcolors.endc)
+    return link
+
 def plotly_json_to_html(js,filename='product'):
-    link = py.iplot(js, filename=filename)
-    return link.embed_code
+    link = plotly_json_to_url(js,filename)
+    iframe = '<iframe width="1000 px" height="500 px" frameborder="0" scrolling="no" src="%s"></iframe>'
+    return iframe%(link)
 
 def product_html_plot(lst):
     product_html = ''
