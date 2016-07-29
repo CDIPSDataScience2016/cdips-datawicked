@@ -66,9 +66,18 @@ def product():
 
 @app.route('/ml_models')
 def ml_models():
-    render_template('ml_models.html')
+    accuracy_json = json.load(open('app/static/accuracy_plotly.json','r'))
+    auc_json = json.load(open('app/static/auc_plotly.json','r'))
+    f1_json = json.load(open('app/static/f1_plotly.json','r'))
+    accuracy_html = plotly_json_to_html(accuracy_json, filename='accuracy')
+    auc_html = plotly_json_to_html(auc_json, filename='auc')
+    f1_html = plotly_json_to_html(f1_json, filename='f1')
+    post={'accuracy':accuracy_html,
+          'auc':auc_html,
+          'f1':f1_html}
+    return render_template('ml_models.html',post=post)
 
 @app.route('/topic_models')
 def topic_models():
-    render_template('topic_models.html')
+    return render_template('topic_models.html',post={})
     
