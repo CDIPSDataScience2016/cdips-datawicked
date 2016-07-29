@@ -94,16 +94,21 @@
           <form action="/product" method="post" class="form-inline">
           <div class="row">
                <div class="form-group">
-                    <select name="product_select" multiple class="form-control" id="sel2">
-                        <option value="Samsung Chromebook">Samsung Chromebook</option>
-                        <option value="Apple iPad">Apple iPad</option>
-                        <option value="Product 3">Product 3</option>
-                        <option value="Product 4">Product 4</option>
-                        <option value="Product 5">Product 5</option>
+                    <select multiple name="product_select" class="form-control" id="sel2">
+		      <option value="AmazonBasics USB to lightning charger for Apple">AmazonBasics USB</option>
+		      <option value="Google Chromecast">Google Chromecast</option>
+		      <option value="Kindle Fire">Kindle Fire</option>
+		      <option value="Kindle Paperwhite Case">Kindle Paperwhite Case</option>
+		      <option value="Kindle Powerfast Charger">Kindle Powerfast Charger</option>
+		      <option value="Mohu Leaf 30 TV Antenna">Mohu Leaf Antenna</option>
+		      <option value="Powergen Car Charger (Apple and Android devices)">Powergen Car Charger</option>
+		      <option value="SanDisk 64Gb memory card">SanDisk 64Gb</option>
+		      <option value="Sony PlayStation 4">PlayStation 4</option>
+		      <option value="Tech Armor Privacy Screen for iPhone5">Tech Armor Privacy Screen</option>
                     </select>
                </div>
                <div class="form-group">
-                 <label class="radio-inline" >Sentiment</label>
+                 <label class="radio-inline">Sentiment</label>
                     <label class="radio-inline">
                         <input id="inlineradio1" name="sentiment" value="Positive" type="radio">
                         Positive</label>
@@ -118,78 +123,12 @@
                 <button type="submit" class="btn btn-fill btn-info btn-default">Submit</button>
              </div>
           </form>
-<!--
-                <select name="product_select" multiple="" class="ui fluid dropdown">
-                      <option value="Samsung Chromebook">Samsung Chromebook</option>
-                      <option value="Apple iPad">Apple iPad</option>
-                  </select>
-                  btn  btn-default btn-info
-
-
-	    <div class="content">
-	      <form action="/product" method="post">
-		  <div class="row">
-		      <div class="form-group">
-		          <select name="product_select" multiple="" class="ui fluid dropdown">
-		              <option value="Samsung Chromebook">Samsung Chromebook</option>
-		              <option value="Apple iPad">Apple iPad</option>
-		          </select>
-		      </div>
-                <div class="form-group">
-                    <label class="radio-inline">Sentiment</label>
-                    <label class="radio-inline">
-                        <input id="inlineradio1" name="sentiment" value="1" type="radio">
-                        Positive</label>
-                    <label class="radio-inline">
-                        <input id="inlineradio2" name="sentiment" value="2" type="radio">
-                        Negative</label>
-                    <label class="radio-inline">
-                        <input id="inlineradio3" name="sentiment" value="3" type="radio">
-                        Overall</label>
-                </div>
-		    </div>
--->
-
-		<!--
-		<div class="row">
-		  <div class="form-group">
-		    <label class="col-sm-2 control-label">Product</label>		    
-		    <input type="checkbox" name="product" data-toggle="checkbox"
-			   value="Samsung Chromebook">
-		    <span class="category">Samsung Chromebook</span></input>
-		    <input type="checkbox" name="product" data-toggle="checkbox"
-			   value="Apple iPad">
-		    <span class="category">Apple iPad</span></input>
-
-		  </div>
-		</div>
-        -->
-
-    
-
-
-
-        <!--
-		<div class="row">
-		  <div class="form-group">
-		    <label class="col-sm-2 control-label">Sentiment</label>
-
-		    <input type="checkbox" name="sentiment" data-toggle="checkbox" value="1">
-		    <span class="category">Positive</span></input>
-
-		    <input type="checkbox" name="sentiment" data-toggle="checkbox" value="0">
-		    <span class="category">Neutral</span></input>
-
-		    <input type="checkbox" name="sentiment" data-toggle="checkbox" value="-1">
-		    <span class="category">Negative</span></input>
-
-		  </div>
-		</div>
-        -->
 		
   	    </div>
 	  </div>
 	</div>
+
+	<!-- PLOTLY DIV -->
         <div class="col-md-12">
           <div class="card">
             <div class="header">
@@ -200,14 +139,8 @@
             <div class="content">
 	           {{post.plotly_html | safe}}
               <div class="footer">
-                <div class="legend">
-                  <i class="fa fa-circle text-info"></i> Open
-                  <i class="fa fa-circle text-danger"></i> Click
-                  <i class="fa fa-circle text-warning"></i> Click Second Time
-                </div>
-                <hr>
                 <div class="stats">
-                  <i class="fa fa-history"></i> Updated 3 minutes ago
+                  <i class="fa fa-history"></i> Updated by DATABOARD
                 </div>
               </div>
             </div>
