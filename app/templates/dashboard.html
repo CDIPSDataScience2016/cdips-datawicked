@@ -53,19 +53,43 @@
                     DataBoard
                 </a>
             </div>
-
+	    
             <ul class="nav">
-                <li class="active">
-                    <a href="/product">
-                        <i class="pe-7s-graph"></i>
-                        <p>Dashboard</p>
+
+	      <li class="active">
+                    <a href="/index">
+                        <i class="pe-7s-map-marker"></i>
+                        <p>Home</p>
                     </a>
                 </li>
+
+	      <li class="active">
+                    <a href="/ml_models">
+                        <i class="pe-7s-rocket"></i>
+                        <p>Learning Models</p>
+                    </a>
+                </li>
+
+                <li class="active">
+                    <a href="/product">
+                        <i class="pe-7s-news-paper"></i>
+                        <p>Product Reviews</p>
+                    </a>
+                </li>
+
+		<li class="active">
+                    <a href="/topic_models">
+                        <i class="pe-7s-graph"></i>
+                        <p>Topic Models</p>
+                    </a>
+                </li>
+
             </ul>
     	</div>
     </div>
 
     <div class="main-panel">
+      <!--
         <nav class="navbar navbar-default navbar-fixed">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -79,7 +103,7 @@
                 </div>
             </div>
         </nav>
-
+-->
 	<br>
 
 
@@ -94,32 +118,31 @@
           <form action="/product" method="post" class="form-inline">
           <div class="row">
                <div class="form-group">
-                    <select multiple name="product_select" class="form-control" id="sel2">
-		      <option value="AmazonBasics USB to lightning charger for Apple">AmazonBasics USB</option>
+                    <select multiple name="product_select" class="form-control" id="sel2" required>
+		      <option value="USB to lightning charger">AmazonBasics USB</option>
 		      <option value="Google Chromecast">Google Chromecast</option>
 		      <option value="Kindle Fire">Kindle Fire</option>
 		      <option value="Kindle Paperwhite Case">Kindle Paperwhite Case</option>
 		      <option value="Kindle Powerfast Charger">Kindle Powerfast Charger</option>
 		      <option value="Mohu Leaf 30 TV Antenna">Mohu Leaf Antenna</option>
-		      <option value="Powergen Car Charger (Apple and Android devices)">Powergen Car Charger</option>
-		      <option value="SanDisk 64Gb memory card">SanDisk 64Gb</option>
+		      <option value="Powergen Car Charger">Powergen Car Charger</option>
+		      <option value="SanDisk memory card">SanDisk 64Gb</option>
 		      <option value="Sony PlayStation 4">PlayStation 4</option>
-		      <option value="Tech Armor Privacy Screen for iPhone5">Tech Armor Privacy Screen</option>
+		      <option value="Privacy Screen for iPhone5">Tech Armor Privacy Screen</option>
                     </select>
                </div>
+
+	       <!--
                <div class="form-group">
                  <label class="radio-inline">Sentiment</label>
                     <label class="radio-inline">
-                        <input id="inlineradio1" name="sentiment" value="Positive" type="radio">
-                        Positive</label>
+                        <input id="inlineradio1" name="sentiment" value="Positive" type="radio">Positive</label>
                     <label class="radio-inline">
-                        <input id="inlineradio2" name="sentiment" value="Negative" type="radio">
-                        Negative</label>
+                        <input id="inlineradio2" name="sentiment" value="Negative" type="radio">Negative</label>
                     <label class="radio-inline">
-                        <input id="inlineradio3" name="sentiment" value="Overall" type="radio">
-                        Overall</label>
+                        <input id="inlineradio3" name="sentiment" value="all" type="radio">Both</label>
                </div>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	       -->
                 <button type="submit" class="btn btn-fill btn-info btn-default">Submit</button>
              </div>
           </form>
@@ -129,15 +152,15 @@
 	</div>
 
 	<!-- PLOTLY DIV -->
-        <div class="col-md-12">
+	<!-- Sentiment Plot  -->
+        <div class="col-md-12" id="sentiment_plot">
           <div class="card">
             <div class="header">
               <h4 class="title">{{post.product_name}}</h4>
-              <p class="category">{{post.sentiment_type}}&nbsp;Sentiment</p>
-              <p class="category">{{post.kind}}</p>
             </div>
             <div class="content">
-	           {{post.plotly_html | safe}}
+	      {{post.sentiment_html | safe}}
+	      {{post.number_html | safe}}
               <div class="footer">
                 <div class="stats">
                   <i class="fa fa-history"></i> Updated by DATABOARD
@@ -146,6 +169,42 @@
             </div>
           </div>
         </div>
+
+	<!-- Positive Word Cloud  -->
+	<div class="col-md-6" id="positive_word_cloud">
+          <div class="card">
+            <div class="header">
+             <!-- <h4 class="title">{{post.product_name}}</h4> -->
+            </div>
+            <div class="content">
+	           <img src={{post.positive_cloud}}>
+              <div class="footer">
+                <div class="stats">
+                  <i class="fa fa-history"></i> Updated by DATABOARD
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+	<!-- Negative Word Cloud  -->
+	<div class="col-md-6" id="negative_word_cloud">
+          <div class="card">
+            <div class="header">
+             <!-- <h4 class="title">{{post.product_name}}</h4> -->
+            </div>
+            <div class="content">
+	           <img src={{post.negative_cloud}}>
+              <div class="footer">
+                <div class="stats">
+                  <i class="fa fa-history"></i> Updated by DATABOARD
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
     </div>
 </div>
 
@@ -176,8 +235,9 @@
         	demo.initChartist();
 
         	$.notify({
-            	icon: 'pe-7s-gift',
-            	message: "Welcome to <b>DataBoard Dashboard</b> - a CDIPS data driven product."
+            	icon: 'pe-7s-science',
+            	message: "Select a one or more products to visualize their
+            	review trends - a CDIPS data driven product."
 
             },{
                 type: 'info',

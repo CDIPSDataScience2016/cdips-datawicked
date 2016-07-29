@@ -2,7 +2,8 @@
 
 # Read in data for products and assign product names (this should be automated from meta data in the future
 import pandas as pd
-all_reviews = pd.read_csv("data/top_10_electronics_reviews.csv", sep='\t')
+from app import all_reviews
+#all_reviews = pd.read_csv("data/top_10_electronics_reviews.csv", sep='\t')
 
 
 # Everything before this point can be done when the web page is initially loaded, everything after this point will update when parameters are given. Currently only parameter is product, although multiple products can be given as a list (they will all be plotted on the same graph). 

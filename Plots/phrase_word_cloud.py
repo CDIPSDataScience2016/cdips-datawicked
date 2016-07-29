@@ -153,13 +153,13 @@ def make_word_cloud(product, sentiment):
                max_font_size=300, random_state=42)
 
         # generate word cloud for positive
-        positive_name = 'pos_wordcloud.png'
+        positive_name = '../app/static/img/pos_wordcloud.png'
         wc.generate_from_frequencies(pos_words_array)
         wc.recolor(color_func=pos_color_func, random_state=3)
         wc.to_file(positive_name)
 
         # generate word cloud for negative
-        negative_name = 'neg_wordcloud.png'
+        negative_name = '../app/static/img/neg_wordcloud.png'
         wc.generate_from_frequencies(neg_words_array)
         wc.recolor(color_func=neg_color_func, random_state=3)
         wc.to_file(negative_name)

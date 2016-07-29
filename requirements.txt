@@ -3,3 +3,8 @@ plotly==1.12.4
 textblob==0.11.1
 wordcloud==1.2.1
 palettable==2.1.1
+scipy==0.18.0
+scikit-learn==0.17.1
+Pillow==3.3.0
+wordcloud==1.2.1
+palettable==2.1.1
