@@ -2,7 +2,8 @@
 
 # Read in data for products and assign product names (this should be automated from meta data in the future
 import pandas as pd
-all_reviews = pd.read_csv("./data/top_10_electronics_reviews.csv", sep='\t')
+from app import all_reviews
+#all_reviews = pd.read_csv("data/top_10_electronics_reviews.csv", sep='\t')
 
 
 # Everything before this point can be done when the web page is initially loaded, everything after this point will update when parameters are given. Currently only parameter is product, although multiple products can be given as a list (they will all be plotted on the same graph). 
@@ -53,6 +54,7 @@ def sentiment_reviews(product):
 
 #Generates plotly plot of all reviews vs time for a single product or list of products
 def make_all_review_plot_json(products):
+    print('In make_all_reiview_plot_json')
     data = []
     
     if type(products) == str:
@@ -93,8 +95,9 @@ def make_all_review_plot_json(products):
     )
 
     fig = go.Figure(data=data, layout=layout)
-    with open('Ipad_and_Kindle.json', 'w') as outfile:
-        return json.dump(fig, outfile, cls=plotly.utils.PlotlyJSONEncoder)
+    return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+#    with open('Ipad_and_Kindle.json', 'w') as outfile:
+#        return json.dump(fig, outfile, cls=plotly.utils.PlotlyJSONEncoder)
 
 #Generates plotly plot of % positive reviews vs time for single product or list of products
 def make_sentiment_plot_json(products):
@@ -138,6 +141,7 @@ def make_sentiment_plot_json(products):
     )
 
     fig = go.Figure(data=data, layout=layout)
-    with open('Ipad_and_Kindle_sentiment.json', 'w') as outfile:
-        return json.dump(fig, outfile, cls=plotly.utils.PlotlyJSONEncoder)
+    return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+#    with open('Ipad_and_Kindle_sentiment.json', 'w') as outfile:
+#        return json.dump(fig, outfile, cls=plotly.utils.PlotlyJSONEncoder)
 
