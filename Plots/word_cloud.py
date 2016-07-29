@@ -9,7 +9,7 @@ from wordcloud import WordCloud, STOPWORDS
 from palettable.colorbrewer.sequential import Reds_9
 from palettable.colorbrewer.sequential import Greens_9
 
-all_phrases = pd.read_pickle("product_sentiment_phrases.pkl")
+all_phrases = pd.read_pickle("../app/static/product_sentiment_phrases.pkl")
 
 #Get positive and negative noun phrases for a specific product
 def get_phrases(product):
