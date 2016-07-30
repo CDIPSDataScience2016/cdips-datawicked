@@ -53,10 +53,14 @@ def sentiment_html_plot(lst):
 
 def bar_html_plot(product,sentiment,width="800 px",height="500 px"):
     bar_html = ''
+    html_table = ''
     if product and sentiment:
-        bar_json = json.loads(plotly_topic_frequency_bar(product,sentiment))
+        bar_json, html_table = plotly_topic_frequency_bar(product,sentiment)
+        bar_json = json.loads(bar_json)
         bar_html = plotly_json_to_html(bar_json, filename='bar', width=width, height=height)
-    return bar_html
+    print('BAR:',bar_html)
+    print('table:', html_table)
+    return bar_html, html_table
 
 def product_list(lst):
     return ' | '.join(lst).rstrip(' | ')
@@ -116,9 +120,10 @@ def topic_models():
     print(bcolors.red, product, bcolors.endc)
     print(bcolors.blue, sentiment, bcolors.endc)
         
-    bar_html = bar_html_plot(product,sentiment, width="900 px", height="500 px")
+    bar_html, table_html = bar_html_plot(product,sentiment, width="900 px", height="500 px")
     print(bcolors.green, bar_html, bcolors.endc)
-    post = {'bar_html':bar_html}
+    post = {'bar_html':bar_html,
+            'table_html':table_html}
     print(post)
     return render_template('topic_models.html',post=post)
     
