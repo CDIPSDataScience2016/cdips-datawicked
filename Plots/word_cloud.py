@@ -1,6 +1,8 @@
 #Read in data (this can be done at start of the app)
+import os
 import pandas as pd
-
+import random
+from app import all_phrases, home
 from sklearn.feature_extraction.text import CountVectorizer
 import numpy as np
 
@@ -9,7 +11,7 @@ from wordcloud import WordCloud, STOPWORDS
 from palettable.colorbrewer.sequential import Reds_9
 from palettable.colorbrewer.sequential import Greens_9
 
-all_phrases = pd.read_pickle("../app/static/product_sentiment_phrases.pkl")
+
 
 #Get positive and negative noun phrases for a specific product
 def get_phrases(product):
@@ -46,9 +48,11 @@ def neg_color_func(word, font_size, position, orientation, random_state=None, **
 
 # Make word clouds from product string or list of product strings
 def make_word_cloud(products):
-    positve_name = '../app/static/img/pos_wordcloud.png'
-    negative_name = '../app/static/img/neg_wordcloud.png'
-
+    positive_name = os.path.join(home,'app/static/img/pos_wordcloud.png')
+    negative_name = os.path.join(home,'app/static/img/neg_wordcloud.png')
+    print('In the clouds!')
+    print(positive_name)
+    print(negative_name)
     if type(products) == str:
         new_pos_phrases, new_neg_phrases = get_phrases(products)
         freq_pos = get_word_freq(new_pos_phrases)

@@ -34,6 +34,13 @@
     <!--      Semantic           -->
     <link href="/static/semantic/dist/semantic.min.css" type="text/css">
     <script src="/static/semantic/dist/semantic.min.js"></script>
+
+    <script>
+      function refreshImages(){
+      document.getElementById("negative_word_cloud").src="/static/img/neg_wordcloud.png"
+      document.getElementById("positive_word_cloud").src="/static/img/pos_wordcloud.png"
+      }
+      </script>
 </head>
 <body>
 
@@ -119,7 +126,7 @@
           <div class="row">
                <div class="form-group">
                     <select multiple name="product_select" class="form-control" id="sel2" required>
-		      <option value="USB to lightning charger">AmazonBasics USB</option>
+		      <option value="USB to lightning charger">USB to lightning charger</option>
 		      <option value="Google Chromecast">Google Chromecast</option>
 		      <option value="Kindle Fire">Kindle Fire</option>
 		      <option value="Kindle Paperwhite Case">Kindle Paperwhite Case</option>
@@ -132,18 +139,7 @@
                     </select>
                </div>
 
-	       <!--
-               <div class="form-group">
-                 <label class="radio-inline">Sentiment</label>
-                    <label class="radio-inline">
-                        <input id="inlineradio1" name="sentiment" value="Positive" type="radio">Positive</label>
-                    <label class="radio-inline">
-                        <input id="inlineradio2" name="sentiment" value="Negative" type="radio">Negative</label>
-                    <label class="radio-inline">
-                        <input id="inlineradio3" name="sentiment" value="all" type="radio">Both</label>
-               </div>
-	       -->
-                <button type="submit" class="btn btn-fill btn-info btn-default">Submit</button>
+                <button onclick="refreshImages()" type="submit" class="btn btn-fill btn-info btn-default" >Submit</button>
              </div>
           </form>
 		
@@ -177,7 +173,7 @@
              <!-- <h4 class="title">{{post.product_name}}</h4> -->
             </div>
             <div class="content">
-	           <img src={{post.positive_cloud}}>
+	           {{post.positive_cloud | safe}}
               <div class="footer">
                 <div class="stats">
                   <i class="fa fa-history"></i> Updated by DATABOARD
@@ -188,13 +184,16 @@
         </div>
 
 	<!-- Negative Word Cloud  -->
-	<div class="col-md-6" id="negative_word_cloud">
+	
+	<div class="col-md-6">
           <div class="card">
             <div class="header">
              <!-- <h4 class="title">{{post.product_name}}</h4> -->
             </div>
             <div class="content">
-	           <img src={{post.negative_cloud}}>
+	           <!--<img id="negative_word_cloud"
+			    src="/static/img/neg_wordcloud.png">-->
+		   {{ post.negative_cloud | safe }}
               <div class="footer">
                 <div class="stats">
                   <i class="fa fa-history"></i> Updated by DATABOARD
@@ -204,6 +203,9 @@
           </div>
         </div>
 
+	<script type="text/javascript">
+	  document.getElementById("negative_word_cloud").src = {{post.negative_cloud}};
+	</script>
 
     </div>
 </div>
