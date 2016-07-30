@@ -27,7 +27,7 @@ inv_asin_dic = {k: v for v, k in asin_dic.items()}
 
 
 def plotly_topic_frequency_bar(product_id, sentiment):
-    nshow = 5
+    nshow = 10
     threshold = 0.5
 
     if sentiment == 'positive':
