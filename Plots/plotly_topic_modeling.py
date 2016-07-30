@@ -27,11 +27,8 @@ inv_asin_dic = {k: v for v, k in asin_dic.items()}
 
 
 def plotly_topic_frequency_bar(product_id, sentiment):
-
     nshow = 50
     threshold = 0.5
-
-   # product_id = 'B0074BW614'
 
     if sentiment == 'positive':
         df = df_topic[df_topic['Sentiment'] == 1]
@@ -73,7 +70,6 @@ def plotly_topic_frequency_bar(product_id, sentiment):
                        height=800)
 
     data = [go.Bar(x=frequency_sorted[-nshow:],
-                   # y=TID_label_sorted[-nshow:],
                    y=ylabel[-nshow:],
                    orientation='h')]
 
@@ -82,5 +78,3 @@ def plotly_topic_frequency_bar(product_id, sentiment):
 
     return fig_json
 
-    # with open('topic_freq.json', 'w') as fh:
-    #    fh.write(fig_js)
