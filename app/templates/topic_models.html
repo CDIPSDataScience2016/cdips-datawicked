@@ -34,14 +34,7 @@
     <!--      Semantic           -->
     <link href="/static/semantic/dist/semantic.min.css" type="text/css">
     <script src="/static/semantic/dist/semantic.min.js"></script>
-<!--
-    <script>
-      function refreshImages(){
-      document.getElementById("negative_word_cloud").src="/static/img/neg_wordcloud.png"
-      document.getElementById("positive_word_cloud").src="/static/img/pos_wordcloud.png"
-      }
-      </script>
--->
+
 </head>
 <body>
 
@@ -121,43 +114,46 @@
 	      <h4 class="title">Electronics Products</h4>
 	    </div>
 
-        <div class="content">
-          <label for="sel2">Mutiple select list (hold shift to select more than one):</label>
-          <form action="/product" method="post" class="form-inline">
-          <div class="row">
-               <div class="form-group">
-                    <select multiple name="product_select" class="form-control" id="sel2" required>
-		      <option value="USB to lightning charger">USB to lightning charger</option>
-		      <option value="Google Chromecast">Google Chromecast</option>
-		      <option value="Kindle Fire">Kindle Fire</option>
-		      <option value="Kindle Paperwhite Case">Kindle Paperwhite Case</option>
-		      <option value="Kindle Powerfast Charger">Kindle Powerfast Charger</option>
-		      <option value="Mohu Leaf 30 TV Antenna">Mohu Leaf Antenna</option>
-		      <option value="Powergen Car Charger">Powergen Car Charger</option>
-		      <option value="SanDisk memory card">SanDisk 64Gb</option>
-		      <option value="Sony PlayStation 4">PlayStation 4</option>
-		      <option value="Privacy Screen for iPhone5">Tech Armor Privacy Screen</option>
-                    </select>
-               </div>
-
-                <button type="submit" class="btn btn-fill btn-info btn-default" >Submit</button>
-             </div>
+            <div class="content">
+              <label for="sel2">Select a product:</label>
+              <form action="/topic_models" method="post" class="form-inline">
+		<div class="row">
+		  <div class="col-md-6">
+		    <div class="form-group">
+                      <select name="product" class="form-control" id="sel2" required>
+			<option value="USB to lightning charger">USB to lightning charger</option>
+			<option value="Google Chromecast">Google Chromecast</option>
+			<option value="Kindle Fire">Kindle Fire</option>
+			<option value="Kindle Paperwhite Case">Kindle Paperwhite Case</option>
+			<option value="Kindle Powerfast Charger">Kindle Powerfast Charger</option>
+			<option value="Mohu Leaf 30 TV Antenna">Mohu Leaf Antenna</option>
+			<option value="Powergen Car Charger">Powergen Car Charger</option>
+			<option value="SanDisk memory card">SanDisk 64Gb</option>
+			<option value="Sony PlayStation 4">PlayStation 4</option>
+			<option value="Privacy Screen for iPhone5">Tech Armor Privacy Screen</option>
+                      </select>
+		    </div>
+		  </div>
+		</div>
+	    
+		<div class="col-md-6">
+		  <label for="sel2">Sentiment</label>
+		  <div class="form-group">
+		      <input type="radio" name="sentiment" value="positive">    Positive    </input>
+		      <input type="radio" name="sentiment" value="negative">    Negative    </input>
+		    </div>
+		</div>
+		<button type="submit" class="btn btn-fill btn-info btn-default" >Submit</button>
+	    </div>
+          </div>
           </form>
-		
-  	    </div>
-	  </div>
-	</div>
-
+	</div>  
 	<!-- PLOTLY DIV -->
-	<!-- Sentiment Plot  -->
-        <div class="col-md-12" id="sentiment_plot">
+	<!-- Topic Frequency Bar  -->
+        <div class="col-md-12" id="frequency_plot">
           <div class="card">
-            <div class="header">
-              <h4 class="title">{{post.product_name}}</h4>
-            </div>
-            <div class="content">
-	      {{post.sentiment_html | safe}}
-	      {{post.number_html | safe}}
+            <div class="content" align="center">
+	      {{post.bar_html | safe}}
               <div class="footer">
                 <div class="stats">
                   <i class="fa fa-history"></i> Updated by DATABOARD
@@ -167,14 +163,14 @@
           </div>
         </div>
 
-	<!-- Positive Word Cloud  -->
-	<div class="col-md-6" id="positive_word_cloud">
+	<!-- Topic Table  -->
+	<div class="col-md-12" id="topic_table">
           <div class="card">
             <div class="header">
              <!-- <h4 class="title">{{post.product_name}}</h4> -->
             </div>
             <div class="content">
-	           {{post.positive_cloud | safe}}
+	      {{post.topic_table}}
               <div class="footer">
                 <div class="stats">
                   <i class="fa fa-history"></i> Updated by DATABOARD
@@ -183,30 +179,6 @@
             </div>
           </div>
         </div>
-
-	<!-- Negative Word Cloud  -->
-	
-	<div class="col-md-6">
-          <div class="card">
-            <div class="header">
-             <!-- <h4 class="title">{{post.product_name}}</h4> -->
-            </div>
-            <div class="content">
-	           <!--<img id="negative_word_cloud"
-			    src="/static/img/neg_wordcloud.png">-->
-		   {{ post.negative_cloud | safe }}
-              <div class="footer">
-                <div class="stats">
-                  <i class="fa fa-history"></i> Updated by DATABOARD
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-	<script type="text/javascript">
-	  document.getElementById("negative_word_cloud").src = {{post.negative_cloud}};
-	</script>
 
     </div>
 </div>
