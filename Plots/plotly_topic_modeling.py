@@ -1,40 +1,42 @@
+import json
+import pandas as pd
+import numpy as np
+import plotly
+import plotly.plotly as py
+import plotly.graph_objs as go
+from app import df_review, df_topic
+
+py.sign_in('naddata', '6eos5rv0q4')
+
+#df_review = pd.read_csv('../data/review-topic.csv')
+#df_topic = pd.read_csv('../data/topic-words-reviews.csv')
+
+
+asin_dic = {'B0074BW614': 'Kindle Fire',
+            'B00DR0PDNE': 'Google Chromecast',
+            'B007WTAJTO': 'SanDisk memory card',
+            'B006GWO5WK': 'Kindle Powerfast Charger',
+            'B007R5YDYA': 'Kindle Paperwhite Case',
+            'B00622AG6S': 'Powergen Car Charger',
+            'B008OHNZI0': 'Privacy Screen for iPhone 5',
+            'B009SYZ8OC': 'USB to lightning charger',
+            'B00BGA9WK2': 'Sony PlayStation 4',
+            'B004QK7HI8': 'Mohu Leaf 30 TV Antenna'}
+
+inv_asin_dic = {k: v for v, k in asin_dic.items()}
+
+
 def plotly_topic_frequency_bar(product_id, sentiment):
-
-    asin_dic = {'B0074BW614': 'Kindle Fire',
-                'B00DR0PDNE': 'Google Chromecast',
-                'B007WTAJTO': 'SanDisk memory card',
-                'B006GWO5WK': 'Kindle Powerfast Charger',
-                'B007R5YDYA': 'Kindle Paperwhite Case',
-                'B00622AG6S': 'Powergen Car Charger',
-                'B008OHNZI0': 'Privacy Screen for iPhone 5',
-                'B009SYZ8OC': 'USB to lightning charger',
-                'B00BGA9WK2': 'Sony PlayStation 4',
-                'B004QK7HI8': 'Mohu Leaf 30 TV Antenna'}
-    inv_asin_dic = {k: v for v, k in asin_dic.items()}
-
-    import json
-    import pandas as pd
-    import numpy as np
-    import plotly
-    import plotly.plotly as py
-    import plotly.graph_objs as go
-
-    py.sign_in('naddata', '6eos5rv0q4')
 
     nshow = 50
     threshold = 0.5
 
-    df_review = pd.read_csv('../data/review-topic.csv')
-    df_topic = pd.read_csv('../data/topic-words-reviews.csv')
-
-    # product_id = 'B0074BW614'
+   # product_id = 'B0074BW614'
 
     if sentiment == 'positive':
         df = df_topic[df_topic['Sentiment'] == 1]
     elif sentiment == 'negative':
         df = df_topic[df_topic['Sentiment'] == 0]
-    # elif sentiment == 'all':
-    #     df = df_topic
 
     TID = df.Topic_ID.tolist()
     TID_label = ['Topic ' + str(i) for i in TID]
@@ -67,6 +69,7 @@ def plotly_topic_frequency_bar(product_id, sentiment):
                        #     title='Topics'
                        # ),
                        showlegend=False,
+                       margin=go.Margin(l=400),
                        height=800)
 
     data = [go.Bar(x=frequency_sorted[-nshow:],
