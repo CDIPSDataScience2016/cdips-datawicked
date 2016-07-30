@@ -1,12 +1,13 @@
 from flask import render_template, request, redirect, url_for
-from app import app
+from app import app, home
 from .utils import bcolors
 from Plots.time_series_plots import make_all_review_plot_json, make_sentiment_plot_json
-from Plots.phrase_word_cloud import make_word_cloud
+from Plots.word_cloud import make_word_cloud 
 import plotly
 import plotly.plotly as py
 import plotly.graph_objs as go
 import json
+import base64
 import pdb
 
 py.sign_in('naddata','6eos5rv0q4')
@@ -21,11 +22,22 @@ def plotly_json_to_html(js,filename='product'):
     iframe = '<iframe width="1000 px" height="500 px" frameborder="0" scrolling="no" src="%s"></iframe>'
     return iframe%(link)
 
+def wordcloud_html(src):
+    try:
+        print('try in wordcloud_html')
+        pngdata = base64.b64encode(open(src,'rb').read())
+        print(str(pngdata))
+        #pdb.set_trace()
+        print('All good here')
+        return '<img src="data:image/png;base64,' + pngdata.decode('utf-8') + '">'
+    except:
+        print('Except in wordcloud_html')
+        return '<img>'
+
 def product_html_plot(lst):
     product_html = ''
     if lst:
         product_json = json.loads(make_all_review_plot_json(lst))
-        print('Product JSON', product_json)
         product_html = plotly_json_to_html(product_json,
                                            filename='number')
     return product_html
@@ -34,7 +46,6 @@ def sentiment_html_plot(lst):
     sentiment_html = ''
     if lst:
         sentiment_json = json.loads(make_sentiment_plot_json(lst))
-        print('Sentiment JSON', sentiment_json)
         sentiment_html = plotly_json_to_html(sentiment_json,
                                              filename='sentiment')
     return sentiment_html
@@ -50,24 +61,34 @@ def index():
 
 @app.route('/product', methods=['GET', 'POST'])
 def product():
-    product_select = request.form.getlist('product_select',None)
+    product_select = request.form.getlist('product_select')
 
+    
     print(bcolors.blue,'Product Selection:',product_select,bcolors.endc)
     product_html = product_html_plot(product_select)
     sentiment_html = sentiment_html_plot(product_select)
-    if not product_select:
-        pass
-        #make_word_cloud(product_select,'all')
-    positive_cloud = '/static/img/pos_wordcloud.png'
-    negative_cloud = '/static/img/neg_wordcloud.png'
-        
-    print(bcolors.green,product_html,bcolors.endc)
-    print(bcolors.blue,sentiment_html,bcolors.endc)
+    positive_cloud = ''
+    negative_cloud = ''
+    if product_select != []:
+        print('New word clouds!')
+        positive_cloud, negative_cloud = make_word_cloud(product_select)
+        #positive_cloud = "/static/img/pos_wordcloud.png"
+        #negative_cloud = "/static/img/neg_wordcloud.png"
+
+        positive_cloud = wordcloud_html(positive_cloud)
+        negative_cloud = wordcloud_html(negative_cloud)
+    
+    print(bcolors.red, positive_cloud, bcolors.endc)
+    print(bcolors.blue, negative_cloud, bcolors.endc)
+    print(bcolors.green, product_html, bcolors.endc)
+    print(bcolors.blue, sentiment_html, bcolors.endc)
+
     post = {'product_name': product_list(product_select),
             'sentiment_html': sentiment_html,
             'number_html': product_html,
             'positive_cloud':positive_cloud,
             'negative_cloud':negative_cloud}
+
     return render_template('dashboard.html', post=post)
 
 @app.route('/ml_models')

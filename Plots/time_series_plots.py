@@ -146,6 +146,5 @@ def make_sentiment_plot_json(products):
 
     fig = go.Figure(data=data, layout=layout)
     return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-#    with open('Ipad_and_Kindle_sentiment.json', 'w') as outfile:
-#        return json.dump(fig, outfile, cls=plotly.utils.PlotlyJSONEncoder)
+
 
