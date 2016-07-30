@@ -18,14 +18,15 @@ def plotly_topic_frequency_bar(product_id, sentiment):
     import plotly
     import plotly.plotly as py
     import plotly.graph_objs as go
+    from app import df_review, df_topic
 
     py.sign_in('naddata', '6eos5rv0q4')
 
     nshow = 50
     threshold = 0.5
 
-    df_review = pd.read_csv('../data/review-topic.csv')
-    df_topic = pd.read_csv('../data/topic-words-reviews.csv')
+    # df_review = pd.read_csv('../data/review-topic.csv')
+    # df_topic = pd.read_csv('../data/topic-words-reviews.csv')
 
     # product_id = 'B0074BW614'
 
