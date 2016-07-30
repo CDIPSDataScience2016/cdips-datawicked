@@ -41,26 +41,37 @@ def plotly_topic_frequency_bar(product_id, sentiment):
     rev_prob = [eval(rev) for rev in df.Reviews.tolist()]
     rev_prob = [[freq for freq in freq1 if freq[1] > threshold
                  and df_review.loc[freq[0], 'ProductID'] ==
-                 inv_asin_dic(product_id)]
+                 inv_asin_dic[product_id]]
                 for freq1 in rev_prob]
     frequency = [len(freq) for freq in rev_prob]
     sort_idx = np.argsort(np.array(frequency))
     frequency_sorted = list(np.array(frequency)[sort_idx])
     TID_label_sorted = list(np.array(TID_label)[sort_idx])
+    TID_sorted = list(np.array(TID)[sort_idx])
+
+    if sentiment == 'positive':
+        ylabel = [', '.join([pair[0] for pair in
+                             eval(df_topic.loc[TID, 'Words_and_Weights'])[:5]])
+                  for TID in TID_sorted]
+    elif sentiment == 'negative':
+        ylabel = [', '.join([pair[0] for pair in
+                             eval(df_topic.loc[TID+200, 'Words_and_Weights'])[:5]])
+                  for TID in TID_sorted]
 
     layout = go.Layout(title='Frequency of reviews related to each topic '
                        'for product ' + product_id,
                        xaxis=dict(
                            title='Review frequency'
                        ),
-                       yaxis=dict(
-                           title='Topics'
-                       ),
-                       showlegend=True,
+                       # yaxis=dict(
+                       #     title='Topics'
+                       # ),
+                       showlegend=False,
                        height=800)
 
     data = [go.Bar(x=frequency_sorted[-nshow:],
-                   y=TID_label_sorted[-nshow:],
+                   # y=TID_label_sorted[-nshow:],
+                   y=ylabel[-nshow:],
                    orientation='h')]
 
     fig = go.Figure(data=data, layout=layout)
