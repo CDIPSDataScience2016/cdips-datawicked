@@ -76,5 +76,42 @@ def plotly_topic_frequency_bar(product_id, sentiment):
     fig = go.Figure(data=data, layout=layout)
     fig_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
-    return fig_json
+    # make topic, review, probability table
+    ntopic_in_tab = 5
+    nreview_in_tab = 10
+    if sentiment == 'positive':
+        reviews = [[df_review.loc[pair[0], 'Reviews'] for pair in
+                    eval(df_topic.loc[TID, 'Reviews'])[:nreview_in_tab]]
+                   for TID in TID_sorted[-ntopic_in_tab:]]
+        probs = [[pair[1] for pair in
+                 eval(df_topic.loc[TID, 'Reviews'])[:nreview_in_tab]
+                  if pair[1] > threshold]
+                 for TID in TID_sorted[-ntopic_in_tab:]]
+    elif sentiment == 'negative':
+        reviews = [[df_review.loc[pair[0], 'Reviews'] for pair in
+                    eval(df_topic.loc[TID+200, 'Reviews'])[:nreview_in_tab]
+                    if pair[1] > threshold]
+                   for TID in TID_sorted[-ntopic_in_tab:]]
+        probs = [[pair[1] for pair in
+                 eval(df_topic.loc[TID+200, 'Reviews'])[:nreview_in_tab]
+                  if pair[1] > threshold]
+                 for TID in TID_sorted[-ntopic_in_tab:]]
 
+    df = pd.DataFrame()
+
+    for i in range(len(probs)):
+        df_tmp = pd.DataFrame({'Topic': ylabel[-ntopic_in_tab+i],
+                               'Reviews': reviews[-ntopic_in_tab+i],
+                               'Prob': probs[-ntopic_in_tab+i]}) \
+                   .set_index(['Topic', 'Reviews'])
+        df = pd.concat((df, df_tmp))
+
+    # table = FF.create_table(df, index=True)
+    # py.iplot(table, filename='pandas_table')
+
+    # df.to_html('table_html.html')
+    html_table_str = df.to_html()
+    # with open('topic_freq.json', 'w') as fh:
+    #    fh.write(fig_js)
+
+    return fig_json, html_table_str
