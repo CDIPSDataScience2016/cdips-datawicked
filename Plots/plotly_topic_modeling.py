@@ -38,7 +38,8 @@ def plotly_topic_frequency_bar(product_id, sentiment):
     TID = df.Topic_ID.tolist()
     TID_label = ['Topic ' + str(i) for i in TID]
     rev_prob = [eval(rev) for rev in df.Reviews.tolist()]
-    rev_prob = [[freq for freq in freq1 if freq[1] > threshold]
+    rev_prob = [[freq for freq in freq1 if freq[1] > threshold
+                 and df_review.loc[freq[0], 'ProductID'] == product_id]
                 for freq1 in rev_prob]
     frequency = [len(freq) for freq in rev_prob]
     sort_idx = np.argsort(np.array(frequency))
@@ -46,7 +47,7 @@ def plotly_topic_frequency_bar(product_id, sentiment):
     TID_label_sorted = list(np.array(TID_label)[sort_idx])
 
     layout = go.Layout(title='Frequency of reviews related to each topic '
-                       'for product ' + product_id,
+                       'for product ' + asin_dic[product_id],
                        xaxis=dict(
                            title='Review frequency'
                        ),
