@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for
-from app import app, home
+from app import app, home, accuracy_json, auc_json, f1_json
 from .utils import bcolors
 from Plots.time_series_plots import make_all_review_plot_json, make_sentiment_plot_json
 from Plots.word_cloud import make_word_cloud
@@ -98,9 +98,6 @@ def product():
 
 @app.route('/ml_models')
 def ml_models():
-    accuracy_json = json.load(open('app/static/accuracy_plotly.json','r'))
-    auc_json = json.load(open('app/static/auc_plotly.json','r'))
-    f1_json = json.load(open('app/static/f1_plotly.json','r'))
     accuracy_html = plotly_json_to_html(accuracy_json, filename='accuracy')
     auc_html = plotly_json_to_html(auc_json, filename='auc')
     f1_html = plotly_json_to_html(f1_json, filename='f1')

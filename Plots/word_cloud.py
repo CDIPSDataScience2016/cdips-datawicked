@@ -48,8 +48,8 @@ def neg_color_func(word, font_size, position, orientation, random_state=None, **
 
 # Make word clouds from product string or list of product strings
 def make_word_cloud(products):
-    positive_name = os.path.join(home,'app/static/img/pos_wordcloud.png')
-    negative_name = os.path.join(home,'app/static/img/neg_wordcloud.png')
+    positive_name = os.path.join(home,'/home/ubuntu/cdips-datawicked/app/static/img/pos_wordcloud.png')
+    negative_name = os.path.join(home,'/home/ubuntu/cdips-datawicked/app/static/img/neg_wordcloud.png')
     print('In the clouds!')
     print(positive_name)
     print(negative_name)
