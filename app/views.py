@@ -9,7 +9,6 @@ import plotly.plotly as py
 import plotly.graph_objs as go
 import json
 import base64
-import pdb
 
 py.sign_in('naddata','6eos5rv0q4')
 
@@ -28,7 +27,6 @@ def wordcloud_html(src):
         print('try in wordcloud_html')
         pngdata = base64.b64encode(open(src,'rb').read())
         print(str(pngdata))
-        #pdb.set_trace()
         print('All good here')
         return '<img src="data:image/png;base64,' + pngdata.decode('utf-8') + '">'
     except:
