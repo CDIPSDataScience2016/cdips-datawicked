@@ -65,19 +65,19 @@ trace5 = go.Scatter(
 )
 trace6 = go.Scatter(
     x = xx,
-    y = mvd.measure_data[key_list[2]]['roc_auc'],
+    y = mvd.measure_data[key_list[6]]['roc_auc'],
     mode = 'lines+markers',
     name = key_list[6]
 )
 trace7 = go.Scatter(
     x = xx,
-    y = mvd.measure_data[key_list[3]]['roc_auc'],
+    y = mvd.measure_data[key_list[7]]['roc_auc'],
     mode = 'lines+markers',
     name = key_list[7]
 )
 trace8 = go.Scatter(
     x = xx,
-    y = mvd.measure_data[key_list[4]]['roc_auc'],
+    y = mvd.measure_data[key_list[8]]['roc_auc'],
     mode = 'lines+markers',
     name = key_list[8]
 )
@@ -87,7 +87,7 @@ data_auc = [trace0, trace1, trace2, trace3, trace4,
 # Plot and embed in ipython notebook!
 # py.iplot(data_auc, filename='auc_plotly')
 
-layout = go.Layout(title='AUC measures for different traing data size',
+layout = go.Layout(title='AUC measures for different training data sizes',
                    xaxis=dict(
                        title='Proportion of training data used'
                    ),
@@ -141,19 +141,19 @@ trace5 = go.Scatter(
 )
 trace6 = go.Scatter(
     x = xx,
-    y = mvd.measure_data[key_list[2]]['f1'],
+    y = mvd.measure_data[key_list[6]]['f1'],
     mode = 'lines+markers',
     name = key_list[6]
 )
 trace7 = go.Scatter(
     x = xx,
-    y = mvd.measure_data[key_list[3]]['f1'],
+    y = mvd.measure_data[key_list[7]]['f1'],
     mode = 'lines+markers',
     name = key_list[7]
 )
 trace8 = go.Scatter(
     x = xx,
-    y = mvd.measure_data[key_list[4]]['f1'],
+    y = mvd.measure_data[key_list[8]]['f1'],
     mode = 'lines+markers',
     name = key_list[8]
 )
@@ -163,7 +163,7 @@ data_f1 = [trace0, trace1, trace2, trace3, trace4,
 # Plot and embed in ipython notebook!
 # py.iplot(data_f1, filename='f1_plotly')
 
-layout = go.Layout(title='F1 measures for different traing data size',
+layout = go.Layout(title='F1 measures for different training data sizes',
                    xaxis=dict(
                        title='Proportion of training data used'
                    ),
@@ -218,19 +218,19 @@ trace5 = go.Scatter(
 )
 trace6 = go.Scatter(
     x = xx,
-    y = mvd.measure_data[key_list[2]]['accuracy'],
+    y = mvd.measure_data[key_list[6]]['accuracy'],
     mode = 'lines+markers',
     name = key_list[6]
 )
 trace7 = go.Scatter(
     x = xx,
-    y = mvd.measure_data[key_list[3]]['accuracy'],
+    y = mvd.measure_data[key_list[7]]['accuracy'],
     mode = 'lines+markers',
     name = key_list[7]
 )
 trace8 = go.Scatter(
     x = xx,
-    y = mvd.measure_data[key_list[4]]['accuracy'],
+    y = mvd.measure_data[key_list[8]]['accuracy'],
     mode = 'lines+markers',
     name = key_list[8]
 )
@@ -240,7 +240,7 @@ data_accuracy = [trace0, trace1, trace2, trace3, trace4,
 # Plot and embed in ipython notebook!
 # py.iplot(data_accuracy, filename='accuracy_plotly')
 
-layout = go.Layout(title='Accuracy measures for different traing data size',
+layout = go.Layout(title='Accuracy measures for different training data sizes',
                    xaxis=dict(
                        title='Proportion of training data used'
                    ),
