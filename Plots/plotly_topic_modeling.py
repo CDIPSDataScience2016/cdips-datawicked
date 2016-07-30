@@ -27,7 +27,7 @@ inv_asin_dic = {k: v for v, k in asin_dic.items()}
 
 
 def plotly_topic_frequency_bar(product_id, sentiment):
-    nshow = 50
+    nshow = 10
     threshold = 0.5
 
     if sentiment == 'positive':
@@ -78,7 +78,7 @@ def plotly_topic_frequency_bar(product_id, sentiment):
 
     # make topic, review, probability table
     ntopic_in_tab = 5
-    nreview_in_tab = 10
+    nreview_in_tab = 5
     if sentiment == 'positive':
         reviews = [[df_review.loc[pair[0], 'Reviews'] for pair in
                     eval(df_topic.loc[TID, 'Reviews'])[:nreview_in_tab]]
