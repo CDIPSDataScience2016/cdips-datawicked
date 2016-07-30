@@ -64,7 +64,8 @@ def make_all_review_plot_json(products):
         trace = go.Scatter(
             x=product_time["date"][product_time["overall"] > 1],
             y=product_time["overall"][product_time["overall"] > 1],
-            name=products
+            name=products,
+            mode = 'lines+markers'
         )
         data = [trace]
     elif type(products) == list:
@@ -76,7 +77,8 @@ def make_all_review_plot_json(products):
             trace = go.Scatter(
                 x=product_time["date"][product_time["overall"] > 1],
                 y=product_time["overall"][product_time["overall"] > 1],
-                name=product
+                name=product,
+                mode = 'lines+markers'
             )
             data.append(trace)
     else:
@@ -110,7 +112,8 @@ def make_sentiment_plot_json(products):
         trace = go.Scatter(
             x=sent_product["date"][sent_product["overall"] > 1],
             y=sent_product["sentiment_score"][sent_product["overall"] > 1],
-            name=products
+            name=products,
+            mode = 'lines+markers'
         )
         data = [trace]
     elif type(products) == list:
@@ -122,7 +125,8 @@ def make_sentiment_plot_json(products):
             trace = go.Scatter(
                 x=sent_product["date"][sent_product["overall"] > 1],
                 y=sent_product["sentiment_score"][sent_product["overall"] > 1],
-                name=product
+                name=product,
+                mode = 'lines+markers'
             )
             data.append(trace)
     else:
@@ -142,6 +146,5 @@ def make_sentiment_plot_json(products):
 
     fig = go.Figure(data=data, layout=layout)
     return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-#    with open('Ipad_and_Kindle_sentiment.json', 'w') as outfile:
-#        return json.dump(fig, outfile, cls=plotly.utils.PlotlyJSONEncoder)
+
 

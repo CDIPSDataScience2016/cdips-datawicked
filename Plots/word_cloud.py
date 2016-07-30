@@ -1,6 +1,8 @@
 #Read in data (this can be done at start of the app)
+import os
 import pandas as pd
-
+import random
+from app import all_phrases, home
 from sklearn.feature_extraction.text import CountVectorizer
 import numpy as np
 
@@ -9,7 +11,7 @@ from wordcloud import WordCloud, STOPWORDS
 from palettable.colorbrewer.sequential import Reds_9
 from palettable.colorbrewer.sequential import Greens_9
 
-all_phrases = pd.read_pickle("../app/static/product_sentiment_phrases.pkl")
+
 
 #Get positive and negative noun phrases for a specific product
 def get_phrases(product):
@@ -46,6 +48,11 @@ def neg_color_func(word, font_size, position, orientation, random_state=None, **
 
 # Make word clouds from product string or list of product strings
 def make_word_cloud(products):
+    positive_name = os.path.join(home,'app/static/img/pos_wordcloud.png')
+    negative_name = os.path.join(home,'app/static/img/neg_wordcloud.png')
+    print('In the clouds!')
+    print(positive_name)
+    print(negative_name)
     if type(products) == str:
         new_pos_phrases, new_neg_phrases = get_phrases(products)
         freq_pos = get_word_freq(new_pos_phrases)
@@ -68,15 +75,16 @@ def make_word_cloud(products):
         wc = WordCloud(background_color="white", max_words=2000,
                max_font_size=300, random_state=42)
 
+
         # generate word cloud for positive
         wc.generate_from_frequencies(pos_words_array)
         wc.recolor(color_func=pos_color_func, random_state=3)
-        wc.to_file("../app/static/img/pos_wordcloud.png")
+        wc.to_file(positive_name)
 
         # generate word cloud for negative
         wc.generate_from_frequencies(neg_words_array)
         wc.recolor(color_func=neg_color_func, random_state=3)
-        wc.to_file("../app/static/img/neg_wordcloud.png")
+        wc.to_file(negative_name)
 
     elif type(products) == list:
         list_pos = []
@@ -110,13 +118,13 @@ def make_word_cloud(products):
                max_font_size=300, random_state=42)
 
         # generate word cloud for positive
-        positive_name = '../app/static/img/pos_wordcloud.png'
         wc.generate_from_frequencies(pos_words_array)
         wc.recolor(color_func=pos_color_func, random_state=3)
         wc.to_file(positive_name)
 
         # generate word cloud for negative
-        negative_name = '../app/static/img/neg_wordcloud.png'
         wc.generate_from_frequencies(neg_words_array)
         wc.recolor(color_func=neg_color_func, random_state=3)
-        wc.to_file(negative_name)        
+        wc.to_file(negative_name)
+
+    return positive_name, negative_name
