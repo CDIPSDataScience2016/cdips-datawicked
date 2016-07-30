@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<link rel="icon" type="image/png" href="/static/assets/img/favicon.ico">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>Product Viewer - DataBoard</title>
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+
+    <!-- Bootstrap core CSS     -->
+    <link href="/static/assets/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Animation library for notifications   -->
+    <link href="/static/assets/css/animate.min.css" rel="stylesheet"/>
+
+    <!--  Light Bootstrap Table core CSS    -->
+    <link href="/static/assets/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
+
+
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="/static/assets/css/demo.css" rel="stylesheet" />
+
+
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="/static/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+
+
+    <!--      Semantic           -->
+    <link href="/static/semantic/dist/semantic.min.css" type="text/css">
+    <script src="/static/semantic/dist/semantic.min.js"></script>
+
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="sidebar" data-color="blue" data-image="/static/assets/img/sidebar-5.jpg">
+
+    <!--
+
+        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+        Tip 2: you can also add an image using data-image tag
+
+    -->
+
+    	<div class="sidebar-wrapper">
+            <div class="logo">
+                <a href="https://github.com/CDIPSDataScience2016/cdips-datawicked" class="simple-text">
+                    DataBoard
+                </a>
+            </div>
+	    
+            <ul class="nav">
+
+	      <li class="active">
+                    <a href="/index">
+                        <i class="pe-7s-map-marker"></i>
+                        <p>Home</p>
+                    </a>
+                </li>
+
+	      <li class="active">
+                    <a href="/ml_models">
+                        <i class="pe-7s-rocket"></i>
+                        <p>Learning Models</p>
+                    </a>
+                </li>
+
+                <li class="active">
+                    <a href="/product">
+                        <i class="pe-7s-news-paper"></i>
+                        <p>Product Reviews</p>
+                    </a>
+                </li>
+
+		<li class="active">
+                    <a href="/topic_models">
+                        <i class="pe-7s-graph"></i>
+                        <p>Topic Models</p>
+                    </a>
+                </li>
+
+            </ul>
+    	</div>
+    </div>
+
+    <div class="main-panel">
+      <!--
+        <nav class="navbar navbar-default navbar-fixed">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Amazon Product Reviews Trends</a>
+                </div>
+            </div>
+        </nav>
+-->
+	<br>
+
+
+	<div class="col-md-12">
+	  <div class="card">
+	    <div class="header">
+	      <h4 class="title">Electronics Products</h4>
+	    </div>
+
+            <div class="content">
+              <label for="sel2">Select a product:</label>
+              <form action="/topic_models" method="post" class="form-inline">
+		<div class="row">
+		  <div class="col-md-6">
+		    <div class="form-group">
+                      <select name="product" class="form-control" id="sel2" required>
+			<option value="USB to lightning charger">USB to lightning charger</option>
+			<option value="Google Chromecast">Google Chromecast</option>
+			<option value="Kindle Fire">Kindle Fire</option>
+			<option value="Kindle Paperwhite Case">Kindle Paperwhite Case</option>
+			<option value="Kindle Powerfast Charger">Kindle Powerfast Charger</option>
+			<option value="Mohu Leaf 30 TV Antenna">Mohu Leaf Antenna</option>
+			<option value="Powergen Car Charger">Powergen Car Charger</option>
+			<option value="SanDisk memory card">SanDisk 64Gb</option>
+			<option value="Sony PlayStation 4">PlayStation 4</option>
+			<option value="Privacy Screen for iPhone5">Tech Armor Privacy Screen</option>
+                      </select>
+		    </div>
+		  </div>
+		</div>
+	    
+		<div class="col-md-6">
+		  <label for="sel2">Sentiment</label>
+		  <div class="form-group">
+		      <input type="radio" name="sentiment" value="positive">    Positive    </input>
+		      <input type="radio" name="sentiment" value="negative">    Negative    </input>
+		    </div>
+		</div>
+		<button type="submit" class="btn btn-fill btn-info btn-default" >Submit</button>
+	    </div>
+          </div>
+          </form>
+	</div>  
+	<!-- PLOTLY DIV -->
+	<!-- Topic Frequency Bar  -->
+        <div class="col-md-12" id="frequency_plot">
+          <div class="card">
+            <div class="content" align="center">
+	      {{post.bar_html | safe}}
+              <div class="footer">
+                <div class="stats">
+                  <i class="fa fa-history"></i> Updated by DATABOARD
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+	<!-- Positive Word Cloud  -->
+	<div class="col-md-6" id="positive_word_cloud">
+          <div class="card">
+            <div class="header">
+             <!-- <h4 class="title">{{post.product_name}}</h4> -->
+            </div>
+            <div class="content">
+	      {{post.topic_table}}
+              <div class="footer">
+                <div class="stats">
+                  <i class="fa fa-history"></i> Updated by DATABOARD
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+
+    <!--   Core JS Files   -->
+    <script src="/static/assets/js/jquery-1.10.2.js" type="text/javascript"></script>
+	<script src="/static/assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+	<!--  Checkbox, Radio & Switch Plugins -->
+	<script src="/static/assets/js/bootstrap-checkbox-radio-switch.js"></script>
+
+	<!--  Charts Plugin -->
+	<script src="/static/assets/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="/static/assets/js/bootstrap-notify.js"></script>
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+	<script src="/static/assets/js/light-bootstrap-dashboard.js"></script>
+
+	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+	<script src="/static/assets/js/demo.js"></script>
+
+	<script type="text/javascript">
+    	$(document).ready(function(){
+
+        	demo.initChartist();
+
+        	$.notify({
+            	icon: 'pe-7s-science',
+            	message: "Select a one or more products to visualize their
+            	review trends - a CDIPS data driven product."
+
+            },{
+                type: 'info',
+                timer: 4000
+            });
+
+    	});
+	</script>
+
+</html>
