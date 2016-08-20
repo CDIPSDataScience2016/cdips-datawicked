@@ -5,7 +5,7 @@
 	<link rel="icon" type="image/png" href="/static/assets/img/favicon.ico">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title>Product Viewer - DataBoard</title>
+	<title>Sentiment Models - DataBoard</title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -34,14 +34,6 @@
     <!--      Semantic           -->
     <link href="/static/semantic/dist/semantic.min.css" type="text/css">
     <script src="/static/semantic/dist/semantic.min.js"></script>
-<!--
-    <script>
-      function refreshImages(){
-      document.getElementById("negative_word_cloud").src="/static/img/neg_wordcloud.png"
-      document.getElementById("positive_word_cloud").src="/static/img/pos_wordcloud.png"
-      }
-      </script>
--->
 </head>
 <body>
 
@@ -112,99 +104,65 @@
             </div>
         </nav>
 -->
-	<br>
-
-
-	<div class="col-md-12">
+      <br>
+	<div class="col-md-12" id="title">
 	  <div class="card">
 	    <div class="header">
-	      <h4 class="title">Electronics Products</h4>
+	      <h3 class="title">Sentiment Models</h3>
 	    </div>
-	
-        <div class="content">
-          <label for="sel2">Mutiple select list (hold shift to select more than one):</label>
-          <form action="/product" method="post" class="form-inline">
-          <div class="row">
-               <div class="form-group">
-                    <select multiple name="product_select" class="form-control" id="sel2" required>
-		      <option value="USB to lightning charger">USB to lightning charger</option>
-		      <option value="Google Chromecast">Google Chromecast</option>
-		      <option value="Kindle Fire">Kindle Fire</option>
-		      <option value="Kindle Paperwhite Case">Kindle Paperwhite Case</option>
-		      <option value="Kindle Powerfast Charger">Kindle Powerfast Charger</option>
-		      <option value="Mohu Leaf 30 TV Antenna">Mohu Leaf Antenna</option>
-		      <option value="Powergen Car Charger">Powergen Car Charger</option>
-		      <option value="SanDisk memory card">SanDisk 64Gb</option>
-		      <option value="Sony PlayStation 4">PlayStation 4</option>
-		      <option value="Privacy Screen for iPhone 5">Privacy Screen for iPhone 5</option>
-                    </select>
-               </div>
-
-                <button type="submit" class="btn btn-fill btn-info btn-default" >Submit</button>
-             </div>
-          </form>
-		
-  	    </div>
+	    <div class="content">
+	      These are sentiment analysis models trained and tested on data collected from amazon electronics product reviews.<br>
+	      Different vectorizing methods were used for the classification including word counts and TFIDF and all models were scored using accuracy, AUC, and F1 score.<br> 
+	      This information could be used to determine which combination of vectorizer and machine learning algorithm to use for a sentiment classifier.
+	    </div>
 	  </div>
 	</div>
-
 	<!-- PLOTLY DIV -->
-	<!-- Sentiment Plot  -->
-        <div class="col-md-12" id="sentiment_plot">
+	<!-- Accuracy Plot  -->
+        <div class="col-md-12" id="models_plot">
           <div class="card">
-            <div class="header">
-              <h4 class="title">{{post.product_name}}</h4>
-            </div>
             <div class="content">
-	      {{post.sentiment_html | safe}}
-	      {{post.number_html | safe}}
+	      {{post.accuracy | safe}}
               <div class="footer">
                 <div class="stats">
-                  <i class="fa fa-history"></i> Updated by DATABOARD
+                  <i class="fa fa-history"></i> Created by DATABOARD
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-	<!-- Positive Word Cloud  -->
-	<div class="col-md-6" id="positive_word_cloud">
+	<!-- AUC Plot  -->
+        <div class="col-md-12" id="models_plot">
           <div class="card">
-            <div class="header">
-             <!-- <h4 class="title">{{post.product_name}}</h4> -->
-            </div>
-            <div class="content" align="center">
-	           {{post.positive_cloud | safe}}
+            <div class="content">
+	      {{post.auc | safe}}
               <div class="footer">
                 <div class="stats">
-                  <i class="fa fa-history"></i> Updated by DATABOARD
+                  <i class="fa fa-history"></i> Created by DATABOARD
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-	<!-- Negative Word Cloud  -->
-	
-	<div class="col-md-6">
+	<!-- Accuracy Plot  -->
+        <div class="col-md-12" id="models_plot">
           <div class="card">
-            <div class="header">
-             <!-- <h4 class="title">{{post.product_name}}</h4> -->
-            </div>
-            <div class="content" align="center">
-		   {{ post.negative_cloud | safe }}
+            <div class="content">
+	      {{post.f1 | safe}}
               <div class="footer">
                 <div class="stats">
-                  <i class="fa fa-history"></i> Updated by DATABOARD
+                  <i class="fa fa-history"></i> Created by DATABOARD
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-	<script type="text/javascript">
-	  document.getElementById("negative_word_cloud").src = {{post.negative_cloud}};
-	</script>
+    </div>
+</div>
+
 
     </div>
 </div>
